@@ -11,14 +11,14 @@ use App\Gateway\Contracts\Routing\RequestInterface;
 use App\Gateway\Contracts\Routing\ResponseInterface;
 use App\Gateway\Contracts\Routing\RouterInterface;
 use App\Gateway\Contracts\Schema\Registry\ActionRegistryInterface;
-use App\Gateway\Worker\WorkerFactory;
+use App\Gateway\Contracts\Worker\WorkerFactoryInterface;
 
 class Router implements RouterInterface
 {
     public function __construct(
         private readonly ActionRegistryInterface $actionRegistry,
         private readonly ReqRespFactoryInterface $reqRespFactory,
-        private readonly WorkerFactory $workerFactory,
+        private readonly WorkerFactoryInterface $workerFactory,
         private readonly PatternMatcherInterface $patternMatcher
     ) {}
 
