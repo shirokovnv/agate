@@ -16,6 +16,8 @@ use Psr\Log\LoggerInterface;
 
 abstract class AbstractWorker implements WorkerInterface
 {
+    protected bool $logMiddlewareEnabled = false;
+
     public function __construct(
         protected readonly ServiceRegistryInterface $serviceRegistry,
         protected readonly Factory $clientFactory,
@@ -68,22 +70,28 @@ abstract class AbstractWorker implements WorkerInterface
 
     protected function withLoggerMiddleware(): Factory
     {
-        return $this->clientFactory
-            ->globalMiddleware(function ($handler) {
-                return function ($request, $options) use ($handler) {
-                    $startedAt = now();
-                    $this->logger->info($request->getUri());
+        if (! $this->logMiddlewareEnabled) {
+            $this->clientFactory
+                ->globalMiddleware(function ($handler) {
+                    return function ($request, $options) use ($handler) {
+                        $startedAt = now();
+                        $this->logger->info($request->getUri());
 
-                    return $handler($request, $options)
-                        ->then(function (Response $response) use ($startedAt) {
-                            $this->logger->info($response->getStatusCode());
+                        return $handler($request, $options)
+                            ->then(function (Response $response) use ($startedAt) {
+                                $this->logger->info($response->getStatusCode());
 
-                            return $response->withHeader(
-                                'X-Duration',
-                                $startedAt->diffInMilliseconds(now())
-                            );
-                        });
-                };
-            });
+                                return $response->withHeader(
+                                    'X-Duration',
+                                    $startedAt->diffInMilliseconds(now())
+                                );
+                            });
+                    };
+                });
+
+            $this->logMiddlewareEnabled = true;
+        }
+
+        return $this->clientFactory;
     }
 }
