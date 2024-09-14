@@ -1,0 +1,15 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "base_url": {
+            "type": "string",
+            "format": "uri"
+        },
+        "name": {
+            "type": "string"
+        }
+    },
+    "required": ["base_url", "name"],
+    "additionalProperties": false
+}
