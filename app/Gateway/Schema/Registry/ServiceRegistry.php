@@ -30,7 +30,7 @@ class ServiceRegistry implements ServiceRegistryInterface
             ]);
     }
 
-    public function update(string $nameId, ?string $name, ?string $baseUrl): void
+    public function update(string $nameId, ?string $name = null, ?string $baseUrl = null): void
     {
         /** @var Service $service */
         $service = Service::query()

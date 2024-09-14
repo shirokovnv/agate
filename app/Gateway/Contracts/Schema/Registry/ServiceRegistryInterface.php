@@ -17,7 +17,7 @@ interface ServiceRegistryInterface
 
     public function store(string $name, string $baseUrl): ServiceInterface;
 
-    public function update(string $nameId, ?string $name, ?string $baseUrl): void;
+    public function update(string $nameId, ?string $name = null, ?string $baseUrl = null): void;
 
     public function destroy(string $nameId): void;
 }
