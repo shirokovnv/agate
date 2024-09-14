@@ -11,7 +11,9 @@ class PatternMatcher implements PatternMatcherInterface
 {
     public function matchWithPath(string $pattern, string $path): array
     {
+        // Replace {param} pattern to regexp equivalent
         $regex = preg_replace('/\{(\w+)\}/', '(\w+)', $pattern);
+        // Replace /* pattern to regexp equivalent
         $regex = preg_replace('/\/\*/', '[\w\/]*', $regex);
         $regex = "#^{$regex}$#";
 
