@@ -19,6 +19,7 @@ by collecting data and aggregating results.
 ### For the first time only
 - `git clone https://github.com/shirokovnv/agate.git`
 - `cd agate`
+- `make build`
 - `make setup`
 
 ### From the second time onwards
