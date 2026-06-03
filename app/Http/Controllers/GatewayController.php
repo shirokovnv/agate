@@ -12,12 +12,6 @@ use Illuminate\Http\JsonResponse;
 
 class GatewayController extends Controller
 {
-    /**
-     * @param GatewayRequest $request
-     * @param RouterInterface $router
-     * @param ReqRespFactoryInterface $reqRespFactory
-     * @return JsonResponse
-     */
     public function handle(
         GatewayRequest $request,
         RouterInterface $router,
