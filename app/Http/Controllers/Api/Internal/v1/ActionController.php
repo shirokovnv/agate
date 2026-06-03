@@ -14,7 +14,7 @@ class ActionController extends Controller
      */
     public function index(ActionRegistryInterface $actionRegistry): JsonResponse
     {
-        return new JsonResponse($actionRegistry->get());
+        return new JsonResponse($actionRegistry->get(), 200, [], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
     }
 
     /**
@@ -30,7 +30,7 @@ class ActionController extends Controller
             $request->getWorkflows()
         );
 
-        return new JsonResponse($action);
+        return new JsonResponse($action, 200, [], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
     }
 
     /**
@@ -40,7 +40,7 @@ class ActionController extends Controller
     {
         $action = $actionRegistry->findByName($nameId);
 
-        return new JsonResponse($action);
+        return new JsonResponse($action, 200, [], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
     }
 
     /**
