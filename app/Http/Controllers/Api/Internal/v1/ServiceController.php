@@ -14,7 +14,7 @@ class ServiceController extends Controller
      */
     public function index(ServiceRegistryInterface $serviceRegistry): JsonResponse
     {
-        return new JsonResponse($serviceRegistry->get());
+        return new JsonResponse($serviceRegistry->get(), 200, [], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
     }
 
     /**
@@ -24,7 +24,7 @@ class ServiceController extends Controller
     {
         $service = $serviceRegistry->store($request->getName(), $request->getServiceBaseUrl());
 
-        return new JsonResponse($service);
+        return new JsonResponse($service, 200, [], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
     }
 
     /**
@@ -34,7 +34,7 @@ class ServiceController extends Controller
     {
         $service = $serviceRegistry->findByName($nameId);
 
-        return new JsonResponse($service);
+        return new JsonResponse($service, 200, [], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
     }
 
     /**
